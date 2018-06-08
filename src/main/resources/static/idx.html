@@ -1,10 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>短链接生成</title>
 </head>
-<body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
 
+    html {
+        height: 100%;
+    }
+
+    body {
+        background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528432108205&di=147b90d46bbafc6230ce322a72e3b623&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fc2fdfc039245d6885bc3be94a2c27d1ed21b2438.jpg") no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        height: 100%;
+    }
+
+    .wrapper {
+        padding-top: 13%;
+    }
+
+    .main {
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    h1, h4 {
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .form {
+        background: white;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .form #url {
+        outline: none;
+        border: solid 1px #ececec;
+        border-radius: 10px;
+        height: calc(100% - 20px);
+        width: calc(100% - 30px);
+        font-size: 16px;
+        padding: 10px 15px;
+        background: #fcfcfc;
+        -webkit-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        -ms-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+
+    .form #url:focus {
+        border-color: #76abe9;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table td {
+        padding: 5px 0;
+    }
+
+    table input {
+        margin-right: 5px;
+    }
+
+    .diy {
+        display: none;
+    }
+
+    .submit {
+        margin: 5px;
+        text-align: center;
+        border: solid 1px #bdd0de;
+        border-radius: 5px;
+        padding: 5px 0;
+        cursor: pointer;
+        background: #1E9FFF;
+        color: white;
+
+        -webkit-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        -ms-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+
+    .submit:hover {
+        background: #01AAED;
+    }
+
+    .submit:active {
+        background: #1e84dc;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <div class="main">
+        <h1>短链接生成</h1>
+        <h4>可生成数字、字母、数字字母混合、指定字符串、指定长度的短链接</h4>
+        <div class="form">
+            <input id="url" placeholder="请输入原始链接">
+            <table>
+                <tr>
+                    <td>
+                        <input id="normal_type" type="radio" name="type" checked="checked"><label
+                            for="normal_type">随机生成</label>
+                    </td>
+                    <td>
+                        <input id="diy_type" type="radio" name="type"><label for="diy_type">指定字符串</label>
+                    </td>
+                </tr>
+                <tr class="set">
+                    <td>
+                        <input id="uuid" type="radio" name="generator" value="1" checked><label
+                            for="uuid">UUID生成方式</label>
+                    </td>
+                    <td>
+                        <input id="md5" type="radio" name="generator" value="0"><label for="md5">MD5生成方式</label>
+                    </td>
+                </tr>
+                <tr class="set">
+                    <td>
+                        <label for="length">短链接长度:</label>
+                        <input id="length" type="number" min="4" max="16" value="6">
+                    </td>
+                    <td>
+                        <label for="charset">字符集:</label>
+                        <select id="charset">
+                            <option value="0">纯数字</option>
+                            <option value="1">小写字母</option>
+                            <option value="2">大写字母</option>
+                            <option value="3">大小写字母混合</option>
+                            <option selected="selected" value="4">数字字母混合</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="diy">
+                    <td colspan="3">
+                        <label for="tag">短链接字符串:</label>
+                        <input id="tag" name="tag" placeholder="请输入字符串" minlength="4" maxlength="16">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="submit" id="submit">生成</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="info">
+                        配置后点击生成按钮即可生成短链接
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <a href=""></a>
+</div>
 </body>
+<script>
+    var type = 0;
+
+    $("#normal_type").click(function () {
+        $(".set").show();
+        $(".diy").hide();
+        type = 0;
+    })
+    $("#diy_type").click(function () {
+        $(".set").hide();
+        $(".diy").show();
+        type = 1;
+    })
+
+    $("#submit").click(function () {
+        if ($("#url").val().length < 4) {
+            alert("请输入原始链接")
+        } else {
+            if (type === 0) {
+                if (parseInt($("#length").val()) < 4 || parseInt($("#length").val()) > 16) {
+                    alert("短链接长度在4~16个字符")
+                } else {
+                    console.log({
+                        url: $("#url").val(),
+                        type: parseInt($("#charset").val()),
+                        length: parseInt($("#length").val()),
+                        generator: parseInt($("input[name=generator]").val())
+                    })
+                    $.ajax({
+                        url: "shortUrl"
+                        , type: "POST"
+                        , data: {
+                            url: $("#url").val(),
+                            type: parseInt($("#charset").val()),
+                            length: parseInt($("#length").val()),
+                            generator: parseInt($("input[name=generator]").val())
+                        }
+                        ,
+                        success: function (data) {
+                            if (data.code == 200) {
+                                host = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/') + 1)
+                                host += data.data
+                                $("#info").html("生成成功：" + "<a href='" + host + "' target='_blank'>" + host + "</a>");
+                            } else {
+                                $("#info").html(data.msg);
+                            }
+                        }
+                        , error: function () {
+                            $("#info").html("请求服务器失败，请重试");
+                        }
+                    })
+                    ;
+                }
+            } else if (type === 1) {
+                if ($("#tag").val().length < 4 || $("#tag").val().length > 16) {
+                    alert("自定义短链接长度在4~16个字符")
+                } else {
+                    $.ajax({
+                        url: "shortUrl"
+                        , type: "POST"
+                        , data: {
+                            url: $("#url").val(),
+                            tag: $("#tag").val(),
+
+                        }
+                        ,
+                        success: function (data) {
+                            if (data.code == 200) {
+                                host = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/') + 1)
+                                host += data.data
+                                $("#info").html("生成成功：" + "<a href='" + host + "' target='_blank'>" + host + "</a>");
+                            } else {
+                                $("#info").html(data.msg);
+                            }
+                        }
+                        , error: function () {
+                            $("#info").html("请求服务器失败，请重试");
+                        }
+                    })
+                }
+            }
+
+        }
+    })
+</script>
 </html>

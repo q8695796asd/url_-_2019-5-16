@@ -30,6 +30,11 @@ public class ShortUrlController {
     @Autowired
     private ShortUrlService shortUrlService;
 
+    @GetMapping("/")
+    public ModelAndView index(){
+        return new ModelAndView("forward:idx.html");
+    }
+
     @ResponseBody
     @PostMapping("/shortUrl")
     public Result generateShortUrl(@Valid UrlRequest urlRequest) {
@@ -56,7 +61,7 @@ public class ShortUrlController {
             if (StringUtils.isEmpty(tag)) {
                 return new Result(0, "生成失败，请重试", null);
             } else {
-                return new Result(0, "生成成功", tag);
+                return new Result(200, "生成成功", tag);
             }
         }
     }

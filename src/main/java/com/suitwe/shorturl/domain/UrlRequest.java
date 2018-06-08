@@ -35,7 +35,7 @@ public class UrlRequest {
      * 生成方式：0:MD5方式，1:UUID方式
      */
     @Min(value = 0, message = "配置参数为:0:md5方式，1:uuid方式")
-    @Max(value = 0, message = "配置参数为:0:md5方式，1:uuid方式")
+    @Max(value = 1, message = "配置参数为:0:md5方式，1:uuid方式")
     private Integer generator;
 
 
