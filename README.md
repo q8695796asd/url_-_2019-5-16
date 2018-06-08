@@ -15,6 +15,8 @@ http://url.suitwe.com
 Springboot+SpringDataJpa+Redis+Mysql+LayUi
 
 ## 更新记录
+2018年06月08日15:58 修复背景图片大小问题
+
 2018年06月08日15:41 重写html页面
 
 2018年06月08日12:00 完成基本功能

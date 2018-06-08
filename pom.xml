@@ -5,11 +5,11 @@
 
 	<groupId>com.suitwe</groupId>
 	<artifactId>short-url</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>short-url</name>
-	<description>Demo project for Spring Boot</description>
+	<description>短连接生成</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
