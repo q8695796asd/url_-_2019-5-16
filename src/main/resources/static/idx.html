@@ -1,260 +1,178 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>短链接生成</title>
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <style>
+        body {
+            margin-top: 12%;
+            background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528432108205&di=147b90d46bbafc6230ce322a72e3b623&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fc2fdfc039245d6885bc3be94a2c27d1ed21b2438.jpg") no-repeat;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+        h1, h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .layui-card {
+            padding: 10px;
+        }
+
+        .tag {
+            display: none;
+        }
+    </style>
 </head>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-    }
-
-    html {
-        height: 100%;
-    }
-
-    body {
-        background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528432108205&di=147b90d46bbafc6230ce322a72e3b623&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fc2fdfc039245d6885bc3be94a2c27d1ed21b2438.jpg") no-repeat;
-        -webkit-background-size: cover;
-        background-size: cover;
-        height: 100%;
-    }
-
-    .wrapper {
-        padding-top: 13%;
-    }
-
-    .main {
-        width: 50%;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    h1, h4 {
-        color: white;
-        margin-bottom: 15px;
-    }
-
-    .form {
-        background: white;
-        width: 100%;
-        height: 100%;
-        padding: 30px;
-        border-radius: 10px;
-        text-align: left;
-        font-size: 14px;
-    }
-
-    .form #url {
-        outline: none;
-        border: solid 1px #ececec;
-        border-radius: 10px;
-        height: calc(100% - 20px);
-        width: calc(100% - 30px);
-        font-size: 16px;
-        padding: 10px 15px;
-        background: #fcfcfc;
-        -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        -ms-transition: all 0.4s;
-        -o-transition: all 0.4s;
-        transition: all 0.4s;
-    }
-
-    .form #url:focus {
-        border-color: #76abe9;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    table td {
-        padding: 5px 0;
-    }
-
-    table input {
-        margin-right: 5px;
-    }
-
-    .diy {
-        display: none;
-    }
-
-    .submit {
-        margin: 5px;
-        text-align: center;
-        border: solid 1px #bdd0de;
-        border-radius: 5px;
-        padding: 5px 0;
-        cursor: pointer;
-        background: #1E9FFF;
-        color: white;
-
-        -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        -ms-transition: all 0.4s;
-        -o-transition: all 0.4s;
-        transition: all 0.4s;
-    }
-
-    .submit:hover {
-        background: #01AAED;
-    }
-
-    .submit:active {
-        background: #1e84dc;
-    }
-</style>
 <body>
-<div class="wrapper">
-    <div class="main">
-        <h1>短链接生成</h1>
-        <h4>可生成数字、字母、数字字母混合、指定字符串、指定长度的短链接</h4>
-        <div class="form">
-            <input id="url" placeholder="请输入原始链接">
-            <table>
-                <tr>
-                    <td>
-                        <input id="normal_type" type="radio" name="type" checked="checked"><label
-                            for="normal_type">随机生成</label>
-                    </td>
-                    <td>
-                        <input id="diy_type" type="radio" name="type"><label for="diy_type">指定字符串</label>
-                    </td>
-                </tr>
-                <tr class="set">
-                    <td>
-                        <input id="uuid" type="radio" name="generator" value="1" checked><label
-                            for="uuid">UUID生成方式</label>
-                    </td>
-                    <td>
-                        <input id="md5" type="radio" name="generator" value="0"><label for="md5">MD5生成方式</label>
-                    </td>
-                </tr>
-                <tr class="set">
-                    <td>
-                        <label for="length">短链接长度:</label>
-                        <input id="length" type="number" min="4" max="16" value="6">
-                    </td>
-                    <td>
-                        <label for="charset">字符集:</label>
-                        <select id="charset">
-                            <option value="0">纯数字</option>
-                            <option value="1">小写字母</option>
-                            <option value="2">大写字母</option>
-                            <option value="3">大小写字母混合</option>
-                            <option selected="selected" value="4">数字字母混合</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr class="diy">
-                    <td colspan="3">
-                        <label for="tag">短链接字符串:</label>
-                        <input id="tag" name="tag" placeholder="请输入字符串" minlength="4" maxlength="16">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div class="submit" id="submit">生成</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="info">
-                        配置后点击生成按钮即可生成短链接
-                    </td>
-                </tr>
-            </table>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-sm8 layui-col-sm-offset2">
+            <h1>短链接生成</h1>
+            <h4>可生成数字、字母、数字字母混合、指定字符串、指定长度的短链接</h4>
+            <div class="layui-card">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">原始链接</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="url" lay-verify="required|url" placeholder="请输入原始链接"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">生成方式</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="mode" value="1" title="随机字符" checked lay-filter="mode">
+                            <input type="radio" name="mode" value="0" title="自定义字符" lay-filter="mode">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="layui-form-item tag">
+                        <label class="layui-form-label">指定字符串</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="tag" lay-verify="tag" placeholder="请输入要设置的字符串"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">4~16个字符长度的数字、字母</div>
+                    </div>
+                    <div class="layui-form-item random">
+                        <label class="layui-form-label">选择字符集</label>
+                        <div class="layui-input-inline">
+                            <select name="type">
+                                <option value="0">纯数字</option>
+                                <option value="1">小写字母</option>
+                                <option value="2">大写字母</option>
+                                <option value="3">大小写字母混合</option>
+                                <option value="4" selected>数字和大小写字母混合</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label">生成长度</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="length" lay-verify="number|length" placeholder="请输入长度"
+                                   autocomplete="off" class="layui-input" value="6">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">长度在4-16之间</div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">生成模式</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="generator" value="1" title="UUID方式" checked>
+                                <input type="radio" name="generator" value="0" title="MD5方式">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="submit">生成</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    <a href=""></a>
 </div>
-</body>
+<script src="lib/layui/layui.js"></script>
 <script>
-    var type = 0;
+    layui.use(['jquery', 'form'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            mode = 1;
 
-    $("#normal_type").click(function () {
-        $(".set").show();
-        $(".diy").hide();
-        type = 0;
-    })
-    $("#diy_type").click(function () {
-        $(".set").hide();
-        $(".diy").show();
-        type = 1;
-    })
-
-    $("#submit").click(function () {
-        if ($("#url").val().length < 4) {
-            alert("请输入原始链接")
-        } else {
-            if (type === 0) {
-                if (parseInt($("#length").val()) < 4 || parseInt($("#length").val()) > 16) {
-                    alert("短链接长度在4~16个字符")
-                } else {
-                    console.log({
-                        url: $("#url").val(),
-                        type: parseInt($("#charset").val()),
-                        length: parseInt($("#length").val()),
-                        generator: parseInt($("input[name=generator]").val())
-                    })
-                    $.ajax({
-                        url: "shortUrl"
-                        , type: "POST"
-                        , data: {
-                            url: $("#url").val(),
-                            type: parseInt($("#charset").val()),
-                            length: parseInt($("#length").val()),
-                            generator: parseInt($("input[name=generator]").val())
-                        }
-                        ,
-                        success: function (data) {
-                            if (data.code == 200) {
-                                host = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/') + 1)
-                                host += data.data
-                                $("#info").html("生成成功：" + "<a href='" + host + "' target='_blank'>" + host + "</a>");
-                            } else {
-                                $("#info").html(data.msg);
-                            }
-                        }
-                        , error: function () {
-                            $("#info").html("请求服务器失败，请重试");
-                        }
-                    })
-                    ;
+        // 表单验证
+        form.verify({
+            tag: function (value, item) {
+                if (mode == 0 && !new RegExp("^[a-zA-Z0-9]{4,16}").test(value)) {
+                    return '只能设置为4~16个字符的数字、字母';
                 }
-            } else if (type === 1) {
-                if ($("#tag").val().length < 4 || $("#tag").val().length > 16) {
-                    alert("自定义短链接长度在4~16个字符")
-                } else {
-                    $.ajax({
-                        url: "shortUrl"
-                        , type: "POST"
-                        , data: {
-                            url: $("#url").val(),
-                            tag: $("#tag").val(),
-
-                        }
-                        ,
-                        success: function (data) {
-                            if (data.code == 200) {
-                                host = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/') + 1)
-                                host += data.data
-                                $("#info").html("生成成功：" + "<a href='" + host + "' target='_blank'>" + host + "</a>");
-                            } else {
-                                $("#info").html(data.msg);
-                            }
-                        }
-                        , error: function () {
-                            $("#info").html("请求服务器失败，请重试");
-                        }
-                    })
+            },
+            length: function (value, item) {
+                if (mode == 1 && (value < 4 || value > 16)) {
+                    console.log(mode)
+                    return '字符长度在4-16之间';
                 }
             }
+        });
 
-        }
-    })
+        //表单提交
+        form.on('submit(submit)', function (data) {
+            delete data.field['mode']
+            if (mode == 0) {
+                delete data.field['generator']
+                delete data.field['length']
+                delete data.field['type']
+            } else if (mode == 1) {
+                delete data.field['tag']
+            }
+            $.ajax({
+                url: "shortUrl"
+                , type: "POST"
+                , data: data.field
+                ,
+                success: function (data) {
+                    if (data.code == 200) {
+                        host = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/') + 1)
+                        host += data.data
+
+                        layer.open({
+                            title: '生成成功'
+                            , content: "<a href='" + host + "' target='_blank'>" + host + "</a>"
+                            , shade: 0.1,
+                            shadeClose: true
+                        });
+                    } else {
+                        layer.open({
+                            title: '生成失败'
+                            , content: data.msg
+                            , shade: 0.1,
+                            shadeClose: true
+                        });
+                    }
+                }
+                , error: function () {
+                    layer.open({
+                        title: '生成失败'
+                        , content: "请求服务器失败，请重试"
+                        , shade: 0.1,
+                        shadeClose: true
+                    });
+                }
+            })
+            return false;
+        });
+
+        form.on('radio(mode)', function (data) {
+            mode = data.value
+            if (data.value == 1) {
+                $(".tag").hide();
+                $(".random").show();
+            } else {
+                $(".tag").show();
+                $(".random").hide();
+            }
+        });
+    });
 </script>
+</body>
+
 </html>
