@@ -1,6 +1,5 @@
-# 短链接生成 http://url.suitwe.com
-
----
+# 短链接生成 
+http://url.suitwe.com
 ## 功能说明
 提供长链接转短网址功能
 
