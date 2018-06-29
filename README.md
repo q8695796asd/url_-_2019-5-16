@@ -1,5 +1,9 @@
 # 短链接生成 
 http://url.suitwe.com
+
+## 使用框架
+Springboot+SpringDataJpa+Redis+Mysql+LayUi
+
 ## 功能说明
 提供长链接转短网址功能
 
@@ -11,10 +15,14 @@ http://url.suitwe.com
 
 4.支持访问计数
 
-## 使用框架
-Springboot+SpringDataJpa+Redis+Mysql+LayUi
+## 下次更新
+1.用户注册登录
+
+2.匿名/登录用户查看已生成短链
 
 ## 更新记录
+2018年06月29日11:45 短链生成时增加操作ip记录
+
 2018年06月08日15:58 修复背景图片大小问题
 
 2018年06月08日15:41 重写html页面
