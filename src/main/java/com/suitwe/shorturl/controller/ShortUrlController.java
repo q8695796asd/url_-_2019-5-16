@@ -37,9 +37,10 @@ public class ShortUrlController {
 
     @ResponseBody
     @PostMapping("/shortUrl")
-    public Result generateShortUrl(@Valid UrlRequest urlRequest) {
+    public Result generateShortUrl(@Valid UrlRequest urlRequest, HttpServletRequest request) {
+        String ip = getIpAddr(request);
         if (!StringUtils.isEmpty(urlRequest.getTag())) {
-            if (shortUrlService.generateShortUrl(urlRequest.getTag(), urlRequest.getUrl())) {
+            if (shortUrlService.generateShortUrl(urlRequest.getTag(), urlRequest.getUrl(),ip)) {
                 return new Result(200, "生成成功！", urlRequest.getTag());
             } else {
                 return new Result(0, "生成失败，该短链接已被使用", null);
@@ -57,7 +58,7 @@ public class ShortUrlController {
             }
 
             // 生成短链接
-            String tag = shortUrlService.generateShortUrl(urlRequest.getUrl(), urlRequest.getType(), urlRequest.getLength(), urlRequest.getGenerator());
+            String tag = shortUrlService.generateShortUrl(urlRequest.getUrl(), urlRequest.getType(), urlRequest.getLength(), urlRequest.getGenerator(),ip);
             if (StringUtils.isEmpty(tag)) {
                 return new Result(0, "生成失败，请重试", null);
             } else {

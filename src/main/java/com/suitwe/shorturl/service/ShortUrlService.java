@@ -24,7 +24,7 @@ public interface ShortUrlService {
      * @param url 原始地址
      * @return 结果
      */
-    boolean generateShortUrl(String tag, String url);
+    boolean generateShortUrl(String tag, String url,String ip);
 
     /**
      * 生成url的短网址并返回短网址结果
@@ -35,7 +35,7 @@ public interface ShortUrlService {
      * @param generator 生成方式：0:MD5方式，1:UUID方式
      * @return 短网址结果
      */
-    String generateShortUrl(String url, int type, int length, int generator);
+    String generateShortUrl(String url, int type, int length, int generator,String ip);
 
     /**
      * 将缓存访问计数存到数据库

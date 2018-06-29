@@ -38,12 +38,12 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean generateShortUrl(String tag, String url) {
+    public boolean generateShortUrl(String tag, String url, String ip) {
         // 判断是否存在该key
         if (shortUrlOpsService.exist(tag)) {
             return false;
         }
-        ShortUrl shortUrl = new ShortUrl(tag, url, 0, new Date());
+        ShortUrl shortUrl = new ShortUrl(tag, url, 0, ip, new Date());
         // 存数据库
         try {
             shortUrlDao.save(shortUrl);
@@ -56,7 +56,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     }
 
     @Override
-    public String generateShortUrl(String url, int type, int length, int generator) {
+    public String generateShortUrl(String url, int type, int length, int generator, String ip) {
         ConvertUtil convertUtil;
         switch (generator) {
             case 0:
@@ -71,7 +71,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
         String[] tags = convertUtil.shortString(url, type, length);
         for (String tag : tags) {
-            if (generateShortUrl(tag, url)) {
+            if (generateShortUrl(tag, url, ip)) {
                 return tag;
             }
         }

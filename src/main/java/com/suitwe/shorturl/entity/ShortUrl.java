@@ -37,6 +37,11 @@ public class ShortUrl {
     @Column(nullable = false)
     private int count;
     /**
+     * 创建ip
+     */
+    private String createIp;
+
+    /**
      * 创建时间
      */
     private Date createDate;
@@ -45,10 +50,11 @@ public class ShortUrl {
     public ShortUrl() {
     }
 
-    public ShortUrl(String tag, String url, int count, Date createDate) {
+    public ShortUrl(String tag, String url, int count, String createIp, Date createDate) {
         this.tag = tag;
         this.url = url;
         this.count = count;
+        this.createIp = createIp;
         this.createDate = createDate;
     }
 
@@ -84,6 +90,14 @@ public class ShortUrl {
         this.count = count;
     }
 
+    public String getCreateIp() {
+        return createIp;
+    }
+
+    public void setCreateIp(String createIp) {
+        this.createIp = createIp;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -99,6 +113,7 @@ public class ShortUrl {
                 ", tag='" + tag + '\'' +
                 ", url='" + url + '\'' +
                 ", count=" + count +
+                ", createIp=" + createIp +
                 ", createDate=" + createDate +
                 '}';
     }
