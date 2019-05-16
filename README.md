@@ -1,13 +1,13 @@
-## 主要参考  https://github.com/Cheivin/short-url.git 项目
+## 主要参考  https://github.com/Cheivin/short-url.git
 
 ## 使用框架
 Springboot+SpringDataJpa+Redis+Mysql+LayUi
 
-##部署方式
+## 部署方式
 Redis,Mysql默认本地,主要配置放在application.yml
 
 
-##mysql
+## mysql
     DROP TABLE IF EXISTS `short_url`;
     CREATE TABLE `short_url` (
       `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -19,7 +19,7 @@ Redis,Mysql默认本地,主要配置放在application.yml
       PRIMARY KEY (`id`),
       UNIQUE KEY `UK_c8xk0tec9hqixart0gq8ngfog` (`tag`)
     )
-##redis
+## redis
     shortUrl        hash
     shortUrlCount   hash
 

@@ -48,7 +48,7 @@ public class ShortUrlApplicationTests {
 
         System.out.println(String.format("短字符串转换,字符集:%d,长度:%d", charset, length));
 
-        String tag[] = convertUtil.shortString("Cheivin", charset, length);
+        String tag[] = convertUtil.shortString("yujianbo", charset, length);
         checkTag(length, charset, tag);
 
         for (String s : tag) {
@@ -65,8 +65,8 @@ public class ShortUrlApplicationTests {
 
         System.out.println(String.format("短字符串转换,字符集:%d,长度:%d", charset, length));
 
-        String tag1[] = convertUtil.shortString("Cheivin", charset, length);
-        String tag2[] = convertUtil.shortString("Cheivin", charset, length);
+        String tag1[] = convertUtil.shortString("yujianbo", charset, length);
+        String tag2[] = convertUtil.shortString("yujianbo", charset, length);
 
         for (int i = 0; i < tag1.length; i++) {
             assert tag1[i].equals(tag2[i]) : "两次md5生成结果不一致";
@@ -83,7 +83,7 @@ public class ShortUrlApplicationTests {
 
         System.out.println(String.format("短字符串转换,字符集:%d,长度:%d", charset, length));
 
-        String tag[] = convertUtil.shortString("Cheivin", charset, length);
+        String tag[] = convertUtil.shortString("yujianbo", charset, length);
         checkTag(length, charset, tag);
 
         for (String s : tag) {
@@ -100,8 +100,8 @@ public class ShortUrlApplicationTests {
 
         System.out.println(String.format("短字符串转换,字符集:%d,长度:%d", charset, length));
 
-        String tag1[] = convertUtil.shortString("Cheivin", charset, length);
-        String tag2[] = convertUtil.shortString("Cheivin", charset, length);
+        String tag1[] = convertUtil.shortString("yujianbo", charset, length);
+        String tag2[] = convertUtil.shortString("yujianbo", charset, length);
 
         for (int i = 0; i < tag1.length; i++) {
             assert !tag1[i].equals(tag2[i]) : "两次uuid生成结果不应一致";
