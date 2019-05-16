@@ -1,13 +1,10 @@
-package com.suitwe.shorturl.utils.convert;
+package com.shorturl.utils.convert;
 
 import java.util.Arrays;
 
 /**
  * 短地址转换工具
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 public interface ConvertUtil {
     /**

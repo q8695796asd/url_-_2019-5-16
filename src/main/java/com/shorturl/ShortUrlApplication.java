@@ -1,11 +1,11 @@
-package com.suitwe.shorturl;
+package com.shorturl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * @author cheivin
+ * 启动类
  */
 @SpringBootApplication
 @EnableScheduling

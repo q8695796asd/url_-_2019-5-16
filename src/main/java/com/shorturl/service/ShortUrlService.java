@@ -1,11 +1,8 @@
-package com.suitwe.shorturl.service;
+package com.shorturl.service;
 
 /**
  * 短网址操作接口
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 public interface ShortUrlService {
 

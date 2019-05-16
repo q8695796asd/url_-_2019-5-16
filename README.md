@@ -1,30 +1,25 @@
-# 短链接生成 
-http://url.suitwe.com
+## 主要参考  https://github.com/Cheivin/short-url.git 项目
 
 ## 使用框架
 Springboot+SpringDataJpa+Redis+Mysql+LayUi
 
-## 功能说明
-提供长链接转短网址功能
+##部署方式
+Redis,Mysql默认本地,主要配置放在application.yml
 
-1.输入长链，可以生成短链
 
-2.可配置长度、字符集
+##mysql
+    DROP TABLE IF EXISTS `short_url`;
+    CREATE TABLE `short_url` (
+      `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+      `count` int(11) NOT NULL COMMENT '访问计数',
+      `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+      `create_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建ip',
+      `tag` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '短链接',
+      `url` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '长链接',
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `UK_c8xk0tec9hqixart0gq8ngfog` (`tag`)
+    )
+##redis
+    shortUrl        hash
+    shortUrlCount   hash
 
-3.支持自定义短链，可以指定字符串作为短链的key
-
-4.支持访问计数
-
-## 下次更新
-1.用户注册登录
-
-2.匿名/登录用户查看已生成短链
-
-## 更新记录
-2018年06月29日11:45 短链生成时增加操作ip记录
-
-2018年06月08日15:58 修复背景图片大小问题
-
-2018年06月08日15:41 重写html页面
-
-2018年06月08日12:00 完成基本功能

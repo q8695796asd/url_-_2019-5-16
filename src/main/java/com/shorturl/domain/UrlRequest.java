@@ -1,4 +1,4 @@
-package com.suitwe.shorturl.domain;
+package com.shorturl.domain;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -7,9 +7,6 @@ import javax.validation.constraints.Size;
 /**
  * 短连接生成请求参数类
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 public class UrlRequest {
     /**

@@ -1,9 +1,9 @@
-package com.suitwe.shorturl.controller;
+package com.shorturl.controller;
 
-import com.suitwe.shorturl.domain.Result;
-import com.suitwe.shorturl.domain.UrlRequest;
-import com.suitwe.shorturl.service.ShortUrlService;
-import org.apache.log4j.Logger;
+import com.shorturl.domain.Result;
+import com.shorturl.domain.UrlRequest;
+import com.shorturl.service.ShortUrlService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -21,15 +21,12 @@ import java.util.Random;
 /**
  * 短连接操作控制器
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 @Controller
 public class ShortUrlController {
     @Autowired
     private ShortUrlService shortUrlService;
-
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
     @GetMapping("/")
     public ModelAndView index(){
         return new ModelAndView("forward:idx.html");
@@ -78,7 +75,7 @@ public class ShortUrlController {
         if (url == null) {
             return new ModelAndView("forward:idx.html");
         } else {
-            Logger.getLogger(this.getClass()).info("IP:[" + getIpAddr(request) + "] 短连接访问：短连接:" + tag + ",原始链接:" + url);
+            logger.info("IP:[" + getIpAddr(request) + "] 短连接访问：短连接:" + tag + ",原始链接:" + url);
             return new ModelAndView("redirect:" + url);
         }
     }

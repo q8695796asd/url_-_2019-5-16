@@ -1,12 +1,12 @@
-package com.suitwe.shorturl.service.impl;
+package com.shorturl.service.impl;
 
-import com.suitwe.shorturl.dao.ShortUrlDao;
-import com.suitwe.shorturl.entity.ShortUrl;
-import com.suitwe.shorturl.service.ShortUrlOpsService;
-import com.suitwe.shorturl.service.ShortUrlService;
-import com.suitwe.shorturl.utils.convert.ConvertUtil;
-import com.suitwe.shorturl.utils.convert.Md5ConvertUtil;
-import com.suitwe.shorturl.utils.convert.UuidConvertUtil;
+import com.shorturl.dao.ShortUrlDao;
+import com.shorturl.entity.ShortUrl;
+import com.shorturl.service.ShortUrlOpsService;
+import com.shorturl.service.ShortUrlService;
+import com.shorturl.utils.convert.ConvertUtil;
+import com.shorturl.utils.convert.Md5ConvertUtil;
+import com.shorturl.utils.convert.UuidConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -20,21 +20,13 @@ import java.util.Map;
 /**
  * 短网址操作实现
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 @Service
 public class ShortUrlServiceImpl implements ShortUrlService {
-    private final ShortUrlDao shortUrlDao;
-    private final ShortUrlOpsService shortUrlOpsService;
-
-    @Autowired
-    public ShortUrlServiceImpl(ShortUrlDao shortUrlDao, ShortUrlOpsService shortUrlOpsService) {
-        this.shortUrlDao = shortUrlDao;
-        this.shortUrlOpsService = shortUrlOpsService;
-    }
-
+	@Autowired
+    private ShortUrlDao shortUrlDao;
+	@Autowired
+    private ShortUrlOpsService shortUrlOpsService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -68,7 +60,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
             default:
                 convertUtil = Md5ConvertUtil.getInstance();
         }
-
+        //生成备选短网址,按顺序验证网址是否存在,不存在就存入该网址,其他的直接丢弃
         String[] tags = convertUtil.shortString(url, type, length);
         for (String tag : tags) {
             if (generateShortUrl(tag, url, ip)) {
@@ -80,7 +72,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     @Override
     /**
-     * 每小时存储一次
+     * 每小时存储一次,同步redis和数据库的访问计数
      */
     @Scheduled(cron = "0 0 0/1 * * ? ")
     public void saveCount2Db() {
@@ -90,7 +82,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         map.forEach((k, v) -> tagList.add(k.toString()));
 
         // 查询对象列表
-        List<ShortUrl> shortUrlList = shortUrlDao.findByTag(tagList);
+        List<ShortUrl> shortUrlList = shortUrlDao.findByTagIn(tagList);
 
         // 更新访问计数
         shortUrlList.forEach(url -> url.setCount(Integer.valueOf((String) map.get(url.getTag()))));

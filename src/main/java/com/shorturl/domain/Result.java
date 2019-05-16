@@ -1,13 +1,10 @@
-package com.suitwe.shorturl.domain;
+package com.shorturl.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * web接口返回对象
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result {

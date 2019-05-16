@@ -1,6 +1,6 @@
-package com.suitwe.shorturl.service.impl;
+package com.shorturl.service.impl;
 
-import com.suitwe.shorturl.service.ShortUrlOpsService;
+import com.shorturl.service.ShortUrlOpsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -10,18 +10,11 @@ import java.util.Map;
 /**
  * redis短网址操作
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/1
  */
 @Service
 public class ShortUrlOpsServiceImpl implements ShortUrlOpsService {
-    private final StringRedisTemplate redisTemplate;
-
-    @Autowired
-    public ShortUrlOpsServiceImpl(StringRedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+	@Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public void putUrls(Map<String, String> map) {

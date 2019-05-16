@@ -1,4 +1,4 @@
-package com.suitwe.shorturl.utils.convert;
+package com.shorturl.utils.convert;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -6,9 +6,6 @@ import java.security.NoSuchAlgorithmException;
 /**
  * md5生成短网址方式
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 public class Md5ConvertUtil implements ConvertUtil {
     private final static ConvertUtil CONVERT_UTIL = new Md5ConvertUtil();

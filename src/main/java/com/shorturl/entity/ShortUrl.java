@@ -1,4 +1,4 @@
-package com.suitwe.shorturl.entity;
+package com.shorturl.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +9,6 @@ import java.util.Date;
 /**
  * 短连接表
  *
- * @author cheivin
- * @version 1.0
- * @date 2018/6/7
  */
 @Entity
 public class ShortUrl {

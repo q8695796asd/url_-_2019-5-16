@@ -1,8 +1,8 @@
-package com.suitwe.shorturl;
+package com.shorturl;
 
-import com.suitwe.shorturl.utils.convert.ConvertUtil;
-import com.suitwe.shorturl.utils.convert.Md5ConvertUtil;
-import com.suitwe.shorturl.utils.convert.UuidConvertUtil;
+import com.shorturl.utils.convert.ConvertUtil;
+import com.shorturl.utils.convert.Md5ConvertUtil;
+import com.shorturl.utils.convert.UuidConvertUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,10 +14,6 @@ import java.util.regex.Pattern;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ShortUrlApplicationTests {
-
-    @Test
-    public void contextLoads() {
-    }
 
     private void checkTag(int length, int charset, String tag[]) {
         // 检查备选长度
@@ -42,7 +38,6 @@ public class ShortUrlApplicationTests {
                 assert Pattern.matches("[0-9a-zA-Z]*", tag[0]) : "字符集错误,应为字母和数字混合";
         }
     }
-
 
     @Test
     public void md5ConvertTest() {
